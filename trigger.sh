@@ -4,7 +4,7 @@
 
 set -o errexit
 
-readonly TRAVIS_API_ADDRESS="${TRAVIS_API_ADDRESS:-https://api.travis-ci.com}"
+readonly TRAVIS_API_ADDRESS="${TRAVIS_API_ADDRESS:-https://api.travis-ci.org}"
 
 main() {
   local repo=$1
@@ -56,10 +56,10 @@ ensure_repo_set() {
     argument but an empty string was received.
 
     Usage:
-      ./trigger.sh <repo>
+      ./trigger.sh <target-repo> <target-script>
 
     Example:
-      ./trigger.sh wedeploy/images
+      ./trigger.sh wedeploy/images ./travis-xpull.sh
 
     Aborting.
     "
@@ -69,11 +69,15 @@ ensure_repo_set() {
 
 trigger_build() {
   local repo=$1
+  local target_script=$2
   local travis_repo=${repo/\//%2F}
   local body="{
   \"request\": {
-    \"message\": \"(AUTO) Triggered by Travis [repo=$TRAVIS_REPO_SLUG],build=$TRAVIS_BUILD_ID]\",
-    \"branch\": \"master\"
+    \"message\": \"[TRAVIS] Xpull trigger from $TRAVIS_REPO_SLUG\",
+    \"branch\": \"master\",
+    \"config\": {
+      \"script\": \"bash $target_script\"
+    }
   }
 }"
 
@@ -106,7 +110,7 @@ trigger_build() {
     echo "Error:
     Something went wrong with the triggering of a build for repository [$repo].
 
-    Make sure you have set a TRAVIS_ACCESST_TOKEN that is able to trigger 
+    Make sure you have set a TRAVIS_ACCESS_TOKEN that is able to trigger
     build for the desired repository.
 
     Aborting.
