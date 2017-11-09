@@ -1,0 +1,15 @@
+{
+  "name": "xpull",
+  "version": "0.0.1",
+  "description": "Scripts for working with travis across github repos",
+  "main": "index.js",
+  "bin": {
+    "xpull": "index.js"
+  },
+  "repository": "git@github.com:reichlab/xpull",
+  "author": "Abhinav Tushar <lepisma@fastmail.com>",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "toml": "^2.3.3"
+  }
+}
