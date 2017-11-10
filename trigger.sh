@@ -8,9 +8,10 @@ readonly TRAVIS_API_ADDRESS="${TRAVIS_API_ADDRESS:-https://api.travis-ci.org}"
 
 main() {
   local repo=$1
+  local target_script=$2
   ensure_environment_variables_set
   ensure_repo_set $repo
-  trigger_build $repo
+  trigger_build $repo $target_script
 }
 
 ensure_environment_variables_set() {
@@ -93,10 +94,10 @@ trigger_build() {
       --header "Travis-API-Version: 3" \
       --header "Authorization: token $TRAVIS_ACCESS_TOKEN" \
       --data "$body" \
-      "${TRAVIS_API_ADDRESS}/repo/$travis_repo/requests"
+      "${TRAVIS_API_ADDRESS}/repo/$travis_repo/requests" 2> /dev/null
   )
 
-  if [[ "$request_status_code" == "200" ]]; then
+  if [[ "$request_status_code" == "20"* ]]; then
     echo "
     Success! Build for repository $repo triggered.
     "
