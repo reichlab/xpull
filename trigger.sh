@@ -21,8 +21,8 @@ ensure_environment_variables_set() {
 
     To get one, use the command like:
 
-      travis login --pro
-      travis token --pro
+      travis login --org
+      travis token --org
 
     Then set the environment variable TRAVIS_ACCESS_TOKEN to
     the token received.
