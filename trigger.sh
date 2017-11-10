@@ -32,15 +32,10 @@ ensure_environment_variables_set() {
     exit 1
   fi
 
-  if [[ -z "$TRAVIS_REPO_SLUG" || -z "$TRAVIS_BUILD_ID" ]]; then
+  if [[ -z "$TRAVIS_REPO_SLUG" ]]; then
     echo "Error:
-    Required environment variables TRAVIS_REPO_SLUG and/or TRAVIS_BUILD_ID
-    not set.
-
-    This might be due to not issuing the command from a Travis build.
-
-    If you wish to continue the execution anyway, make sure you have
-    both environment variables set.
+    Required environment variables TRAVIS_REPO_SLUG not set. This
+    might be due to not issuing the command from a Travis build.
 
     Aborting.
     "
@@ -84,7 +79,6 @@ trigger_build() {
   echo "INFO:
   Triggering build for repository [$repo].
 
-  TRAVIS_BUILD_ID:    $TRAVIS_BUILD_ID
   TRAVIS_REPO_SLUG:   $TRAVIS_REPO_SLUG
   TRAVIS_API_ADDRESS: $TRAVIS_API_ADDRESS
   "
