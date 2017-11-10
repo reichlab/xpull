@@ -64,7 +64,7 @@ config[repo].forEach(pattern => {
     let tf = eval(config.transformers[pattern[2]])
     tfiles = sfiles.map(tf).map(f => path.join(target, f))
   } else {
-    tfiles = sfiles.map(path.basename).map(f => path.join(target, f))
+    tfiles = sfiles.map(f => path.basename(f)).map(f => path.join(target, f))
   }
 
   zip([sfiles, tfiles]).forEach(pair => {
