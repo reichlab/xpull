@@ -1,6 +1,6 @@
 {
   "name": "xpull",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Scripts for working with travis-ci.org across github repos",
   "main": "index.js",
   "bin": {
@@ -13,6 +13,7 @@
     "fs-extra": "^4.0.2",
     "glob": "^7.1.2",
     "js-yaml": "^3.10.0",
+    "safe-eval": "^0.3.0",
     "shelljs": "^0.7.8",
     "yargs": "^10.0.3"
   }

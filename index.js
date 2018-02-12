@@ -5,6 +5,7 @@ const path = require('path')
 const glob = require('glob')
 const yaml = require('js-yaml')
 const shell = require('shelljs')
+const safeEval = require('safe-eval')
 const argv = require('yargs')
       .usage('Usage: $0 --repo [repo] --message [commit-message]')
       .demandOption(['repo'])
@@ -61,8 +62,13 @@ config[repo].forEach(pattern => {
   let tfiles
   // Check for transformers
   if (pattern.length === 3) {
-    let tf = eval(config.transformers[pattern[2]])
-    tfiles = sfiles.map(tf).map(f => path.join(target, f))
+    let tf = safeEval(config.transformers[pattern[2]], { path })
+    // tf should be a function
+    if (tf instanceof Function) {
+      tfiles = sfiles.map(tf).map(f => path.join(target, f))
+    } else {
+      throw new Exception('Transformer not a function.')
+    }
   } else {
     tfiles = sfiles.map(path.basename).map(f => path.join(target, f))
   }
