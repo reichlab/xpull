@@ -70,7 +70,7 @@ config[repo].forEach(pattern => {
       throw new Exception('Transformer not a function.')
     }
   } else {
-    tfiles = sfiles.map(path.basename).map(f => path.join(target, f))
+    tfiles = sfiles.map(f => path.basename(f)).map(f => path.join(target, f))
   }
 
   zip([sfiles, tfiles]).forEach(pair => {
