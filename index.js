@@ -64,7 +64,7 @@ config[repo].forEach(pattern => {
   if (pattern.length === 3) {
     let tf = safeEval(config.transformers[pattern[2]], { path })
     // tf should be a function
-    if (tf instanceof Function) {
+    if (typeof(tf) === 'function') {
       tfiles = sfiles.map(tf).map(f => path.join(target, f))
     } else {
       throw new Error('Transformer not a function.')
