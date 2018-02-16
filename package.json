@@ -1,6 +1,6 @@
 {
   "name": "xpull",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Scripts for working with travis-ci.org across github repos",
   "main": "index.js",
   "bin": {
