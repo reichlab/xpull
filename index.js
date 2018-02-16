@@ -67,7 +67,7 @@ config[repo].forEach(pattern => {
     if (tf instanceof Function) {
       tfiles = sfiles.map(tf).map(f => path.join(target, f))
     } else {
-      throw new Exception('Transformer not a function.')
+      throw new Error('Transformer not a function.')
     }
   } else {
     tfiles = sfiles.map(f => path.basename(f)).map(f => path.join(target, f))
